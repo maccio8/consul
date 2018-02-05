@@ -1,3 +1,10 @@
 <h2><%= t("admin.newsletters.index.title") %></h2>
 
 <%= link_to t("admin.newsletters.index.button"), users_admin_newsletters_path, class: "button" %>
+
+<% @newsletters.each do |newsletter| %>
+  <div id="<%= dom_id(newsletter) %>" class="newsletter">
+    <p>Subject: <%= newsletter.subject %></p>
+    <p>To: <%= newsletter.to %></p>
+  </div>
+<% end %>

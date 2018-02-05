@@ -943,4 +943,9 @@ LOREM_IPSUM
   factory :related_content do
   end
 
+  factory :newsletter do
+    sequence(:subject) { |n| "Subject #{n}" }
+    sequence(:to) { |n| "user#{n}@consul.dev" }
+  end
+
 end

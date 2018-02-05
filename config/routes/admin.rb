@@ -142,7 +142,7 @@ namespace :admin do
 
   resource :activity, controller: :activity, only: :show
 
-  resources :newsletters, only: :index do
+  resources :newsletters do
     get :users, on: :collection
   end
 

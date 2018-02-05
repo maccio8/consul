@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129190950) do
+ActiveRecord::Schema.define(version: 20180205170054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -624,6 +624,15 @@ ActiveRecord::Schema.define(version: 20180129190950) do
 
   add_index "moderators", ["user_id"], name: "index_moderators_on_user_id", using: :btree
 
+  create_table "newsletters", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "to"
+    t.string   "from"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "notifiable_id"
@@ -1041,6 +1050,11 @@ ActiveRecord::Schema.define(version: 20180129190950) do
 
   add_index "topics", ["community_id"], name: "index_topics_on_community_id", using: :btree
   add_index "topics", ["hidden_at"], name: "index_topics_on_hidden_at", using: :btree
+
+  create_table "user_groups", force: :cascade do |t|
+    t.string "name"
+    t.string "kind"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                     default: ""
