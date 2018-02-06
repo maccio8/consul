@@ -14,9 +14,13 @@ class Admin::NewslettersController < Admin::BaseController
 
   def create
     @newsletter = Newsletter.new(newsletter_params)
-    @newsletter.save
 
-    redirect_to [:admin, @newsletter]
+    if @newsletter.save
+      notice = "Newsletter created successfully"
+      redirect_to [:admin, @newsletter], notice: notice
+    else
+      render :new
+    end
   end
 
   def edit
@@ -25,9 +29,12 @@ class Admin::NewslettersController < Admin::BaseController
 
   def update
     @newsletter = Newsletter.find(params[:id])
-    @newsletter.update(newsletter_params)
 
-    redirect_to [:admin, @newsletter]
+    if @newsletter.update(newsletter_params)
+      redirect_to [:admin, @newsletter]
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -41,6 +48,14 @@ class Admin::NewslettersController < Admin::BaseController
     zip = NewsletterZip.new('emails')
     zip.create
     send_file(File.join(zip.path), type: 'application/zip')
+  end
+
+  def deliver
+    @newsletter = Newsletter.find(params[:id])
+    Mailer.newsletter(@newsletter).deliver_later
+
+    notice = "Newsletter sent successfully"
+    redirect_to [:admin, @newsletter], notice: notice
   end
 
   private

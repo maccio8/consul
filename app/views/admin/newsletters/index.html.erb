@@ -1,5 +1,5 @@
 <h2><%= t("admin.newsletters.index.title") %></h2>
-
+<%= link_to "New newsletter", new_admin_newsletter_path %>
 <%= link_to t("admin.newsletters.index.button"), users_admin_newsletters_path, class: "button" %>
 
 <% @newsletters.each do |newsletter| %>

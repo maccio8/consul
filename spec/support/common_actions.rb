@@ -357,4 +357,19 @@ module CommonActions
     end
   end
 
+  def deliver_newsletter
+
+    visit new_admin_newsletter_path
+
+    fill_in "newsletter_subject", with: "This is a subject"
+    fill_in "newsletter_to", with: "user1@example.com"
+    fill_in "newsletter_from", with: "noreply@consul.dev"
+    fill_in "newsletter_body", with: "This is a body"
+    click_button "Create Newsletter"
+
+    expect(page).to have_content "Newsletter created successfully"
+
+    click_link "Send"
+  end
+
 end

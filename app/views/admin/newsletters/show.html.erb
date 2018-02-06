@@ -1,9 +1,11 @@
 <%= link_to "Edit", edit_admin_newsletter_path(@newsletter) %>
 <%= link_to "Delete", admin_newsletter_path(@newsletter), method: :delete %>
 
+<%= link_to "Send", deliver_admin_newsletter_path(@newsletter), method: :post %>
+
 <div>
-  Subject: <%= @newsletter.subject %>
-  To: <%= @newsletter.to %>
-  From: <%= @newsletter.from %>
-  Body: <%= @newsletter.body %>
+  <p>Subject: <%= @newsletter.subject %></p>
+  <p>To: <%= @newsletter.to %></p>
+  <p>From: <%= @newsletter.from %></p>
+  <p>Body: <%= @newsletter.body %></p>
 </div>

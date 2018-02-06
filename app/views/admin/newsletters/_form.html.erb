@@ -1,8 +1,10 @@
 <%= form_for [:admin, @newsletter] do |f| %>
+  <%= render 'shared/errors', resource: @newsletter %>
+
   <%= f.text_field :subject %>
   <%= f.text_field :to %>
   <%= f.text_field :from %>
-  <%= f.text_field :body %>
+  <%= f.text_area :body %>
 
   <%= f.submit %>
 <% end %>

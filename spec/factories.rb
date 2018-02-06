@@ -946,6 +946,8 @@ LOREM_IPSUM
   factory :newsletter do
     sequence(:subject) { |n| "Subject #{n}" }
     sequence(:to) { |n| "user#{n}@consul.dev" }
+    sequence(:from) { |n| "noreply#{n}@consul.dev" }
+    sequence(:body) { |n| "Body #{n}" }
   end
 
 end

@@ -37,7 +37,8 @@ feature "Admin newsletter emails" do
   end
 
   scenario "Create" do
-    visit new_admin_newsletter_path
+    visit admin_newsletters_path
+    click_link "New newsletter"
 
     fill_in "newsletter_subject", with: "This is a subject"
     fill_in "newsletter_to", with: "user1@example.com"
@@ -71,7 +72,7 @@ feature "Admin newsletter emails" do
     expect(page).to have_content "This is different a body"
   end
 
-  scenario "Destroy", :focus do
+  scenario "Destroy" do
     newsletter = create(:newsletter)
 
     visit admin_newsletter_path(newsletter)
@@ -81,6 +82,30 @@ feature "Admin newsletter emails" do
     expect(page).to have_css(".newsletter", count: 0)
   end
 
-  pending "Errors on create"
-  pending "Errors on update"
+  scenario 'Errors on create' do
+    visit new_admin_newsletter_path
+
+    click_button "Create Newsletter"
+
+    expect(page).to have_content error_message
+  end
+
+  scenario "Errors on update" do
+    newsletter = create(:newsletter)
+    visit edit_admin_newsletter_path(newsletter)
+
+    fill_in "newsletter_subject", with: ""
+    click_button "Update Newsletter"
+
+    expect(page).to have_content error_message
+  end
+
+  scenario "Send newsletter email" do
+    newsletter = create(:newsletter)
+    visit admin_newsletter_path(newsletter)
+
+    click_link "Send"
+
+    expect(page).to have_content "Newsletter sent successfully"
+  end
 end
